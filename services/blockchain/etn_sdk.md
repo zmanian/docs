@@ -68,14 +68,14 @@ var chain = hlc.newChain("targetChain");
 chain.setKeyValStore( hlc.newFileKeyValStore('/tmp/keyValStore') );
 
 // Set the URL for member services
-chain.setMemberServicesUrl("grpc://localhost:50051");
+chain.setMemberServicesUrl("grpc://[CA url from Service Credentials]");
 
 // Add a peer's URL
-chain.addPeer("grpc://localhost:30303");
+chain.addPeer("grpc://[Peer URL from Service Credentials ]");
 
 // Enroll "WebAppAdmin" which is already registered because it is
 // listed in fabric/membersrvc/membersrvc.yaml with it's one time password.
-chain.enroll("WebAppAdmin", "DJY27pEnl16d", function(err, webAppAdmin) {
+chain.enroll("WebAppAdmin", "[enrollSecret from Service Credentials]", function(err, webAppAdmin) {
    if (err) return console.log("ERROR: failed to register %s: %s",err);
    // Set this user as the chain's registrar which is authorized to register other users.
    chain.setRegistrar(webAppAdmin);
